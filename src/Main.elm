@@ -1,11 +1,9 @@
 module Main exposing (..)
 
 import Browser
-import Element exposing (..)
-import Element.Background as Background
-import Element.Font as Font
-import Html exposing (Html, div)
-import Html.Attributes exposing (src)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (onInput)
 
 
 
@@ -13,12 +11,12 @@ import Html.Attributes exposing (src)
 
 
 type alias Model =
-    {}
+    { content : String }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( { content = "" }, Cmd.none )
 
 
 
@@ -26,12 +24,14 @@ init =
 
 
 type Msg
-    = NoOp
+    = Change String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        Change newContent ->
+            ( { model | content = newContent }, Cmd.none )
 
 
 
@@ -40,25 +40,15 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ layout [ padding 10 ] elementView
-        ]
-
-
-elementView : Element Msg
-elementView =
-    row
-        []
-        [ el
-            [ Background.color (rgb255 255 0 0)
-            , Font.color (rgb255 255 255 255)
+    div [ class "media" ]
+        [ div [ class "field" ]
+            [ div [ class "control" ]
+                [ input [ class "input", placeholder "message",  value model.content, onInput Change  ] []
+                ]
             ]
-            (text "Hello")
-        , column
-            []
-            [ text "World"
-            , text "of"
-            , text "elm-ui"
+        , div [ class "field" ]
+            [ div [ class "control" ]
+                [ a [ class "button is-primary" ] [ text "send" ] ]
             ]
         ]
 
