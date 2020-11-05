@@ -40,16 +40,12 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [ class "media" ]
-        [ div [ class "field" ]
-            [ div [ class "control" ]
-                [ input [ class "input", placeholder "message",  value model.content, onInput Change  ] []
-                ]
+    div [ class "columns" ]
+        [ div [ class "column" ]
+            [ input [ class "input", placeholder "message", value model.content, onInput Change ] []
             ]
-        , div [ class "field" ]
-            [ div [ class "control" ]
-                [ a [ class "button is-primary" ] [ text "send" ] ]
-            ]
+        , div [ class "column" ]
+            [ a [ class "button is-primary" ] [ text "send" ] ]
         ]
 
 
