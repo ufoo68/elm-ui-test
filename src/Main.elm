@@ -3,7 +3,7 @@ module Main exposing (..)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
+import Html.Events exposing (..)
 
 
 
@@ -24,7 +24,7 @@ init =
 
 
 type Msg
-    = Change String
+    = Change String | Send
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -32,6 +32,8 @@ update msg model =
     case msg of
         Change newContent ->
             ( { model | content = newContent }, Cmd.none )
+        Send ->
+            ( { model | content = "" }, Cmd.none )
 
 
 
@@ -45,7 +47,7 @@ view model =
             [ input [ class "input", placeholder "message", value model.content, onInput Change ] []
             ]
         , div [ class "column" ]
-            [ a [ class "button is-primary" ] [ text "send" ] ]
+            [ a [ class "button is-primary", onClick Send ] [ text "Send" ] ]
         ]
 
 
